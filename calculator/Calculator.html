@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Calculator Project</title>
+    <link rel="stylesheet" href="CSS/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="CSS/bootstrap-5.0.2-dist/js/bootstrap.min.js">
+    <style>
+        body{
+            background-color: linear-gradient(to center, purple, yellow);
+            font-family: 'segoe UI', sans-serif;
+        }
+        body.light-mode{
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        body.dark-mode{
+            background-color: #121212;
+            color: #f8f9fa;
+        }
+        .dark-mode .form-control{
+            background-color: #1e1e1e;color: #fff;
+            border: 1px solid #444;
+        }
+        .dark-mode .btn{
+            border: 1px solid #555;
+        }
+        .calculator{
+            max-width: 400px;
+            margin: 60px auto;
+        }
+        #display{
+            height: 100px;
+            width: 400px;
+            font-size: 2rem;
+            text-align: right;
+            padding-right: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn{
+            font-size: 1.5rem;
+            width: 70px;
+            height: 60px;
+            margin: 5px;
+            border-radius: 8px;
+            transition: 0.2s ease;
+            border: transparent;
+        }
+        .btn:active{
+            transform: scale(0.95);
+        }
+        .btn.operator{
+            background-color: #f0ad4e;
+            color: white;
+        }
+        .btn.equal{
+            background-color: #5cb85c;
+            color: white;
+        }
+        .btn.clear{
+            background-color: #d9534f;
+            color: white;
+        }
+        .max-auto{
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="calculator">
+        <div class="text-end mb-3">
+            <button class="btn btn-outline-primary" style="background-color: transparent;" onclick="ToggleMode('black')">🌓</button>
+        </div>
+        <div class="mx-auto">
+            <input id="display" class="display" readonly>
+            <div class="row g-2">
+                <div class="col-3"><button class="btn btn-secondary w-100" onclick="appendValue('7')">7</button></div>
+                <div class="col-3"><button class="btn btn-secondary w-100" onclick="appendValue('8')">8</button></div>
+                <div class="col-3"><button class="btn btn-secondary w-100" onclick="appendValue('9')">9</button></div>
+                <div class="col-3"><button class="btn operator w-100" onclick="appendValue('/')">/</button></div>
+
+                <div class="col-3"><button class="btn btn-secondary w-100" onclick="appendValue('4')">4</button></div>
+                <div class="col-3"><button class="btn btn-secondary w-100" onclick="appendValue('5')">5</button></div>
+                <div class="col-3"><button class="btn btn-secondary w-100" onclick="appendValue('6')">6</button></div>
+                <div class="col-3"><button class="btn operator w-100" onclick="appendValue('*')">*</button></div>
+
+                <div class="col-3"><button class="btn btn-secondary w-100" onclick="appendValue('1')">1</button></div>
+                <div class="col-3"><button class="btn btn-secondary w-100" onclick="appendValue('2')">2</button></div>
+                <div class="col-3"><button class="btn btn-secondary w-100" onclick="appendValue('3')">3</button></div>
+                <div class="col-3"><button class="btn operator w-100" onclick="appendValue('-')">-</button></div>
+
+                <div class="col-3"><button class="btn btn-secondary w-100" onclick="appendValue('0')">0</button></div>
+                <div class="col-3"><button class="btn btn-secondary w-100" onclick="appendValue('.')">.</button></div>
+                <div class="col-3"><button class="btn equal w-100" onclick="appendValue('=')">=</button></div>
+                <div class="col-3"><button class="btn operator w-100" onclick="appendValue('+')">+</button></div>
+
+                <div class="col-3"><button class="btn btn-danger w-100" style="background-color: rgba(255, 0, 0, 0.568);" onclick="clearDisplay()">C</button></div>
+                <div class="col-3"><button class="btn btn-dark w-100" style="background-color: rgba(0, 0, 0, 0.705); color: #fff;" onclick="backspace()">X</button></div>
+            </div>
+        </div>
+    </div>
+    <script> 
+        function ToggleMode(){
+            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode');
+        }
+        const display = document.getElementById("display");
+
+        function appendValue(val){
+            display.value += val;
+        }
+
+        function calculate(){
+            try{
+                display.value = eval(display.value);
+                if (result === undefined || !isFinite(result)){
+                    display.value = 'Error';
+                } else {
+                    display.value = result;
+                }
+            } catch {
+                display.value = 'Error';
+            }
+        }
+        function clearDisplay(){
+            display.value = "";
+        }
+        function backspace(){
+            display.value = display.value.slice(0, -1);
+        }
+    </script>
+</body>
+</html>
